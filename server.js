@@ -19,12 +19,7 @@ app.use("/api/pricehistory", async (req, res) => {
 
   try {
     response = await axios.get(
-      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/history?timePeriod=7d",
-      {
-        headers: {
-          "x-access-token": process.env.KEY,
-        },
-      }
+      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/history?timePeriod=7d"
     );
   } catch (ex) {
     response = null;
@@ -44,12 +39,7 @@ app.use("/api/price", async (req, res) => {
 
   try {
     response = await axios.get(
-      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/price",
-      {
-        headers: {
-          "x-access-token": process.env.KEY,
-        },
-      }
+      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/price"
     );
   } catch (ex) {
     response = null;
