@@ -14,36 +14,31 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use("/api/event", (req, res) => {
+app.use("/api/pricehistory", async (req, res) => {
   /* Example in Node.js */
 
-  let response = null;
-  new Promise(async (resolve, reject) => {
-    try {
-      response = await axios.get(
-        "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
-        {
-          headers: {
-            "X-CMC_PRO_API_KEY": ,
-            // "X-CMC_PRO_API_KEY": process.env.PrivateKey,
-          },
-        }
-      );
-    } catch (ex) {
-      response = null;
-      // error
-      console.log(ex);
-      reject(ex);
-      res.json(ex);
-    }
-    if (response) {
-      // success
-      const json = response.data;
-      console.log(json);
-      resolve(json);
-      res.json(json);
-    }
-  });
+  try {
+    response = await axios.get(
+      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/history?timePeriod=7d",
+      {
+        headers: {
+          "x-access-token": XXXXX,
+        },
+      }
+    );
+  } catch (ex) {
+    response = null;
+    // error
+    res.json(ex);
+    reject(ex);
+  }
+  if (response) {
+    // success
+
+    const json = response.data;
+
+    res.json(json);
+  }
 });
 
 const port = 8081;
