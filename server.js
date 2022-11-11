@@ -22,7 +22,7 @@ app.use("/api/pricehistory", async (req, res) => {
       "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/history?timePeriod=7d",
       {
         headers: {
-          "x-access-token": XXXXX,
+          "x-access-token": process.env.KEY,
         },
       }
     );
@@ -30,7 +30,6 @@ app.use("/api/pricehistory", async (req, res) => {
     response = null;
     // error
     res.json(ex);
-    reject(ex);
   }
   if (response) {
     // success
@@ -40,6 +39,30 @@ app.use("/api/pricehistory", async (req, res) => {
     res.json(json);
   }
 });
+app.use("/api/price", async (req, res) => {
+  /* Example in Node.js */
 
+  try {
+    response = await axios.get(
+      "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/price",
+      {
+        headers: {
+          "x-access-token": process.env.KEY,
+        },
+      }
+    );
+  } catch (ex) {
+    response = null;
+    // error
+    res.json(ex);
+  }
+  if (response) {
+    // success
+
+    const json = response.data;
+
+    res.json(json);
+  }
+});
 const port = 8081;
 app.listen(port, console.log(`Listening on port ${port}...`));
