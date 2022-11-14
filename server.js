@@ -25,40 +25,27 @@ app.use("/api/pricehistory", async (req, res) => {
   /* Example in Node.js */
 
   try {
-    response = await axios.get(
+    const response = await axios.get(
       "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/history?timePeriod=7d"
     );
+    console.log(response.data);
+    res.json(response.data);
   } catch (ex) {
-    response = null;
     // error
     res.json(ex);
-  }
-  if (response) {
-    // success
-
-    const json = response.data;
-
-    res.json(json);
   }
 });
 app.use("/api/price", async (req, res) => {
   /* Example in Node.js */
 
   try {
-    response = await axios.get(
+    const response = await axios.get(
       "https://api.coinranking.com/v2/coin/uW2tk-ILY0ii/price"
     );
+    console.log(response.data.data);
+    res.json(response.data.data);
   } catch (ex) {
-    response = null;
-    // error
     res.json(ex);
-  }
-  if (response) {
-    // success
-
-    const json = response.data;
-
-    res.json(json);
   }
 });
 
@@ -80,16 +67,16 @@ app.use("/api/ipfs", async (req, res) => {
     const url = "https://" + cid + ".ipfs.w3s.link/ok";
     console.log(url);
 
-    const response = await axios.get(url);
-    const contractAddress = JSON.stringify(req.body.address);
+    const Address = JSON.stringify(req.body.address);
     const dataofuser = new UserData({
-      Address: contractAddress,
+      WalletAddress: Address,
       cid: cid,
+      url: url,
     });
     await dataofuser.save();
     console.log("datasave hogya h ");
-    //  console.log(response);
-    res.json("hogya bahi");
+
+    res.json({ status: "success" });
   } catch (error) {
     console.log(error);
     res.json(error);
