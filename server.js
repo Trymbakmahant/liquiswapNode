@@ -83,6 +83,24 @@ app.post("/api/ipfs", async (req, res) => {
   }
 });
 
+app.post("/api/getdata", async (req, res) => {
+  try {
+    const address = JSON.stringify(req.body.address);
+    const Check = await UserData.find({
+      WalletAddress: { $eq: address },
+    });
+    const UserActivity = [];
+    for (var i = 0; i < Check.length; i++) {
+      const ans = await axios.get(Check[i].url);
+      UserActivity.push(ans.data);
+    }
+
+    res.json(UserActivity.reverse());
+    console.log(UserActivity.reverse());
+  } catch (error) {
+    console.log(error);
+  }
+});
 app.post("/api/getcid", async (req, res) => {
   try {
     const address = JSON.stringify(req.body.address);
