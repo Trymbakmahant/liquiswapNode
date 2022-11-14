@@ -21,7 +21,7 @@ app.use(
 app.use(bodyParser.json({ strict: false }));
 app.use(cors());
 
-app.use("/api/pricehistory", async (req, res) => {
+app.get("/api/pricehistory", async (req, res) => {
   /* Example in Node.js */
 
   try {
@@ -35,7 +35,7 @@ app.use("/api/pricehistory", async (req, res) => {
     res.json(ex);
   }
 });
-app.use("/api/price", async (req, res) => {
+app.get("/api/price", async (req, res) => {
   /* Example in Node.js */
 
   try {
@@ -51,7 +51,7 @@ app.use("/api/price", async (req, res) => {
 
 //////////////////////// ipfs/////////////////////////////////////////////
 
-app.use("/api/ipfs", async (req, res) => {
+app.post("/api/ipfs", async (req, res) => {
   /* Example in Node.js */
   try {
     const client = new Web3Storage({
@@ -83,7 +83,7 @@ app.use("/api/ipfs", async (req, res) => {
   }
 });
 
-app.use("/api/getcid", async (req, res) => {
+app.post("/api/getcid", async (req, res) => {
   try {
     const address = JSON.stringify(req.body.address);
     const Check = await UserData.find({
