@@ -87,7 +87,7 @@ app.use("/api/getcid", async (req, res) => {
   try {
     const address = JSON.stringify(req.body.address);
     const Check = await UserData.find({
-      Address: { $eq: address },
+      WalletAddress: { $eq: address },
     });
     console.log(JSON.stringify(Check));
     res.json(Check);
